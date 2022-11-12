@@ -6,7 +6,7 @@
 int main(void)
 {
 
-	for (auto const x = bigfact::factorize::primes();
+	for (auto const x = bigfact::factorize::primes;
 		auto const p : x)
 	{
 		std::cout << p << "\n";
