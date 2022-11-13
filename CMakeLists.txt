@@ -14,3 +14,11 @@ target_sources(big-factorial
 	PRIVATE ./inc/factorize.hpp
 	        ./src/factorize.cpp
 )
+
+# Demonstration of the factoring capability
+add_executable(factor-demo)
+target_include_directories(factor-demo PRIVATE ./inc)
+target_sources(factor-demo
+	PRIVATE ./inc/factorize.hpp
+	        ./src/demo/factor-int.cpp
+)
