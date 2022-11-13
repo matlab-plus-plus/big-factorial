@@ -140,11 +140,30 @@ namespace bigfact::factorize
 		/*
 		* A dense representation of a number using its prime factorization.
 		*/
-	public: // Should this be private?
 		std::array<prime_t, primes.size()> prime_factor_exponents{};
 	public:
 		constexpr explicit factorization(prime_t const n)
 			: prime_factor_exponents(factor(n))	{}
+		
+		constexpr std::vector<prime_power> to_sparse_repr(void) const noexcept
+		{
+			/*
+			* Computes a sparse representation of the factorization object.
+			*/
+
+			std::vector<prime_power> ret{};
+
+			for (int const ii : std::views::iota(0u, prime_factor_exponents.size()))
+			{
+				auto const thisExp = prime_factor_exponents[ii];
+				if (thisExp > 0u)
+					ret.push_back(
+						prime_power(primes[ii], thisExp)
+					);
+			}
+
+			return ret;
+		}
 	};
 }
 

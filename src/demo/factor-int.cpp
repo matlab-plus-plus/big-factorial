@@ -18,12 +18,9 @@ int main(unsigned int const argc, char** const argv)
 
 	std::cout << 1; // All numbers have 1 as a factor.
 
-	for (auto const ii : std::views::iota(0u, bigfact::factorize::primes.size()))
+	for (auto const pp : f1.to_sparse_repr())
 	{
-		auto const pv = bigfact::factorize::primes[ii];
-		auto const pp = f1.prime_factor_exponents[ii];
-		if (pp > 0u)
-			std::cout << " * " << pv << '^' << pp;
+		std::cout << " * " << pp.prime_val << '^' << pp.prime_pow;
 	}
 
 	std::cout << "\n";
