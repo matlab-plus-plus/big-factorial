@@ -69,6 +69,41 @@ namespace bigfact::factorize
 		return ret;
 	}();
 
+	constexpr std::array<prime_t, primes.size()> factor(prime_t const n)
+	{
+		/*
+		* Compute prime factorization of ``n`` stored in a dense array representation.
+		*/
+		namespace views = std::views;
+		namespace ranges = std::ranges;
+
+		std::array<prime_t, primes.size()> prime_factor_exponents{};
+
+		// Need all factors zeroed-out by default.
+		prime_factor_exponents.fill(0u);
+
+		// TODO: Check if n > primes.back()
+
+		constexpr auto prime_indices = views::iota(0u,
+			primes.size());
+
+		auto n_ = n; // Intentional copy into mutable var
+		for (auto const ii : prime_indices)
+		{
+			auto const curPrime = primes.at(ii);
+
+			while (n_ % curPrime == 0u)
+			{
+				prime_factor_exponents.at(ii)++;
+				n_ /= curPrime;
+			}
+
+			if (n_ == 1u) break;
+		}
+
+		return prime_factor_exponents;
+	}
+
 	struct prime_power
 	{
 		prime_t prime_val{};
@@ -88,35 +123,8 @@ namespace bigfact::factorize
 	public: // Should this be private?
 		std::array<prime_t, primes.size()> prime_factor_exponents{};
 	public:
-		explicit factorization(prime_t const n)
-		{
-			namespace views  = std::views;
-			namespace ranges = std::ranges;
-
-			// Need all factors zeroed-out by default.
-			prime_factor_exponents.fill(0u);
-
-			// TODO: Check if n > primes.back()
-
-			constexpr auto prime_indices = views::iota(0u,
-				primes.size());
-
-			auto n_ = n; // Intentional copy into mutable var
-			for (auto const ii : prime_indices)
-			{
-				auto const curPrime = primes.at(ii);
-
-				while (n_ % curPrime == 0u)
-				{
-					prime_factor_exponents.at(ii)++;
-					n_ /= curPrime;
-				}
-
-				if (n_ == 1u) return;
-			}
-		}
-
-		// TODO: Constexpr constructor that takes a prime factor array as input
+		constexpr explicit factorization(prime_t const n)
+			: prime_factor_exponents(factor(n))	{}
 	};
 }
 
