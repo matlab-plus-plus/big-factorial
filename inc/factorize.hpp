@@ -2,8 +2,11 @@
 #ifndef _bigfact_factorize_hpp
 #define _bigfact_factorize_hpp
 
+#include "math/log.hpp"
+
 #include <algorithm>
 #include <array>
+#include <compare>
 #include <cstddef>
 #include <ranges>
 #include <vector>
@@ -104,6 +107,9 @@ namespace bigfact::factorize
 		return prime_factor_exponents;
 	}
 
+	struct prime_power;
+	constexpr double log(prime_power const) noexcept;
+
 	struct prime_power
 	{
 		prime_t prime_val{};
@@ -113,7 +119,21 @@ namespace bigfact::factorize
 
 		constexpr prime_power(prime_t val, std::size_t pow) noexcept
 			: prime_val(val), prime_pow(pow) {}
+
+		constexpr auto operator <=>(prime_power const rhs) const noexcept
+		{
+			return log(*this) <=> log(rhs);
+		}
 	};
+
+	constexpr double log(prime_power const pp) noexcept
+	{
+		/*
+		* Computes the natural logarithm of a prime_power object.
+		*/
+		return static_cast<double>(pp.prime_pow) *
+			bigfact::math::log(static_cast<double>(pp.prime_val));
+	}
 
 	class factorization
 	{
