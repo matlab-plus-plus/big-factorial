@@ -12,6 +12,7 @@ add_executable(big-factorial)
 target_include_directories(big-factorial PUBLIC ./inc)
 target_sources(big-factorial
 	PRIVATE ./inc/factorize.hpp
+	        ./inc/math/log.hpp
 	        ./src/factorize.cpp
 )
 
