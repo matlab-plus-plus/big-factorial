@@ -68,6 +68,56 @@ namespace bigfact::factorize
 		std::ranges::copy(primes_num_vector(), ret.begin());
 		return ret;
 	}();
+
+	struct prime_power
+	{
+		prime_t prime_val{};
+		std::size_t prime_pow{};
+
+		prime_power() = delete;
+
+		constexpr prime_power(prime_t val, std::size_t pow) noexcept
+			: prime_val(val), prime_pow(pow) {}
+	};
+
+	class factorization
+	{
+		/*
+		* A dense representation of a number using its prime factorization.
+		*/
+	public: // Should this be private?
+		std::array<prime_t, primes.size()> prime_factor_exponents{};
+	public:
+		explicit factorization(prime_t const n)
+		{
+			namespace views  = std::views;
+			namespace ranges = std::ranges;
+
+			// Need all factors zeroed-out by default.
+			prime_factor_exponents.fill(0u);
+
+			// TODO: Check if n > primes.back()
+
+			constexpr auto prime_indices = views::iota(0u,
+				primes.size());
+
+			auto n_ = n; // Intentional copy into mutable var
+			for (auto const ii : prime_indices)
+			{
+				auto const curPrime = primes.at(ii);
+
+				while (n_ % curPrime == 0u)
+				{
+					prime_factor_exponents.at(ii)++;
+					n_ /= curPrime;
+				}
+
+				if (n_ == 1u) return;
+			}
+		}
+
+		// TODO: Constexpr constructor that takes a prime factor array as input
+	};
 }
 
 #endif
