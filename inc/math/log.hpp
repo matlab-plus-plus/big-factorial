@@ -67,7 +67,7 @@ namespace bigfact::math
 		* Computes the natural logarithm of v using a high-precision formula:
 		* https://en.wikipedia.org/wiki/Natural_logarithm#High_precision
 		*/
-		constexpr double m{ 25 };
+		constexpr double m{ 29 };
 		constexpr auto two_pow = [](auto const pow) {return 1 << static_cast<int>(pow); };
 
 		double const s{ v * two_pow(m) };
