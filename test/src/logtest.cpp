@@ -16,6 +16,22 @@ TEST(LogEquivalenceTests, TestSpecialLogs)
 	EXPECT_DOUBLE_EQ(bigfact::math::log(10.0), std::numbers::ln10);
 }
 
+TEST(LogEquivalenceTests, TestScaledLogs)
+{
+	/*
+	* Tests the log function for big input values by using the
+	* property that log(a^b) = b log(a)
+	*/
+	constexpr auto log_10_to_pow = [](double const p) {
+		return bigfact::math::log(std::pow(10.0, p));
+	};
+
+	EXPECT_DOUBLE_EQ(log_10_to_pow(2), 2 * std::numbers::ln10);
+	EXPECT_DOUBLE_EQ(log_10_to_pow(3), 3 * std::numbers::ln10);
+	EXPECT_DOUBLE_EQ(log_10_to_pow(4), 4 * std::numbers::ln10);
+	EXPECT_DOUBLE_EQ(log_10_to_pow(5), 5 * std::numbers::ln10);
+}
+
 TEST(LogDependencyTests, TestSqrt)
 {
 	EXPECT_EQ(bigfact::_math::sqrt(1.0), 1.0);
