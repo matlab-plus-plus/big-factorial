@@ -12,8 +12,9 @@ TEST(LogEquivalenceTests, TestLogOfOne)
 
 TEST(LogEquivalenceTests, TestSpecialLogs)
 {
-	EXPECT_DOUBLE_EQ(bigfact::math::log(2.0), std::numbers::ln2);
-	EXPECT_DOUBLE_EQ(bigfact::math::log(10.0), std::numbers::ln10);
+	double const tol{ std::pow(10.0, -14.0) };
+	EXPECT_NEAR(bigfact::math::log(2.0), std::numbers::ln2, tol);
+	EXPECT_NEAR(bigfact::math::log(10.0), std::numbers::ln10, tol);
 }
 
 TEST(LogEquivalenceTests, TestScaledLogs)
