@@ -23,3 +23,7 @@ target_sources(factor-demo
 	PRIVATE ./inc/factorize.hpp
 	        ./src/demo/factor-int.cpp
 )
+
+# Testing
+include(CTest)
+add_subdirectory(./test)
