@@ -10,6 +10,12 @@ TEST(LogEquivalenceTests, TestLogOfOne)
 		"Log of 1 should be zero.";
 }
 
+TEST(LogEquivalenceTests, TestSpecialLogs)
+{
+	EXPECT_DOUBLE_EQ(bigfact::math::log(2.0), std::numbers::ln2);
+	EXPECT_DOUBLE_EQ(bigfact::math::log(10.0), std::numbers::ln10);
+}
+
 TEST(LogDependencyTests, TestSqrt)
 {
 	EXPECT_EQ(bigfact::_math::sqrt(1.0), 1.0);
