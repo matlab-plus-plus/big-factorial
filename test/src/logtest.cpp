@@ -32,7 +32,7 @@ TEST(LogDependencyTests, TestAMGM)
 	/*
 	* Values taken from https://mathworld.wolfram.com/Arithmetic-GeometricMean.html
 	*/
-	constexpr auto amgm_1 = [](auto const v) {return bigfact::_math::am_gm(1.0, v); };
+	constexpr auto amgm_1 = [](auto const v) {return bigfact::_math::agm(1.0, v); };
 
 	EXPECT_DOUBLE_EQ(amgm_1(2.0), 1.456'791'031'046'906'869'2) <<
 		"The arithmetic-geometric mean of 1 and 2 failed.";
@@ -50,7 +50,7 @@ TEST(LogDependencyTests, TestAGMEqualValues)
 	* Ensure the AGM returns the same value when both inputs are the same.
 	*/
 
-	constexpr auto agm_same = [](auto const v) {return bigfact::_math::am_gm(v, v); };
+	constexpr auto agm_same = [](auto const v) {return bigfact::_math::agm(v, v); };
 
 	EXPECT_EQ(agm_same(1.0), 1.0);
 	EXPECT_EQ(agm_same(10.0), 10.0);

@@ -39,7 +39,7 @@ namespace bigfact::_math
 		return (v < 0.0) ? -v : v;
 	}
 
-	constexpr double am_gm(double const x1, double const x2) noexcept
+	constexpr double agm(double const x1, double const x2) noexcept
 	{
 		/*
 		* Computes the arithmetic-geometric mean of x1 and x2.
@@ -72,6 +72,6 @@ namespace bigfact::math
 
 		double const s{ v * two_pow(m) };
 		
-		return std::numbers::pi / (2.0 * bigfact::_math::am_gm(1, 4.0 / s)) - m * std::numbers::ln2;
+		return std::numbers::pi / (2.0 * bigfact::_math::agm(1, 4.0 / s)) - m * std::numbers::ln2;
 	}
 }
