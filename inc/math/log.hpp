@@ -45,12 +45,14 @@ namespace bigfact::_math
 		* Computes the arithmetic-geometric mean of x1 and x2.
 		*/
 		double am{ x1 }, gm{ x2 }; // assignment of x1 to am & v2 to gm is arbitrary.
+		double tmpAM;
 
 		auto const cur_diff = [&am, &gm] {return abs(am - gm); };
 		while (cur_diff() > std::numeric_limits<double>::epsilon())
 		{
-			am = std::midpoint(am, gm);
+			tmpAM = std::midpoint(am, gm);
 			gm = sqrt(am * gm);
+			am = tmpAM;
 		}
 
 		return am; // Arbitrary, as am == gm within epsilon (i.e. we could have returned gm instead).
